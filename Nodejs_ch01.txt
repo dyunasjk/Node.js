@@ -1,0 +1,81 @@
+1. 노드 시작하기
+
+자바스크립트 이해: https://ko.javascript.info/
+
+기술면접에서는 주로 1장의 기본적인 내용을 물어보므로 주의
+
+1.1 핵심 개념 이해하기
+*Node.js의 정의:
+    크롬 v8 자바스크릡트 엔진으로 빌드된 자바스크립트 런타임
+    Runtime - 실행 시간
+    => Node.js 란 자바스크립트를 실행시키는 실행환경
+    자바로 비유하자면 JVM, 윈도우로 치면 .Net Framework
+
+1.1.1 서버
+    서버: 네트워크를 통해서 클라이언트에 정보나 서비스를 제공하는 컴퓨터 또는 프로그램
+    클라이언트: 사용자PC, 모바일기기, IoT장비 등등 서버에 서비스를 요청하는 컴퓨터 또는 프로그램 (예: 웹 브라우저)
+
+    Front-end                                       Back-end
+    |클라이언트(client|---------> 요청(Request, Req) |server| ======= |DB|
+    React(공부해야함)  <--------- 응답(Response, Res) JSP, PHP
+    Vue(공부해야함)
+    앙골라
+
+Node.js는 서버를 개발하는 언어, 요청에 대한 최종적인 출력은 html(+css, javascript), 자바스크립트는 클라이언트에서 돌아간다. 
+Node.js와 자바스크립트는 많이 비슷하지만 서로 다른점이 있으니 주의.
+자바스크립트를 선행해서 공부하자.
+
+    Server
+    Client
+    Request
+    Response
+
+1.1.2. 자바스크립트 런타임: 자바스크립트 실행환경, 실행기 등등의 의미를 가지고 있다. (Node.js 개발자 이름: 라이언 달)
+이거 존나 중요함 암튼 중요함!!
+    * Node.js의 특징: 세가지 논블로킹 I/O, 이벤트 기반 처리, 싱글 스레드
+    libuv: 논 블로킹 I/O, 이벤트 기반 처리를 담당
+    v8: 자바스크립트 엔진(해석기)
+
+1.1.3. 이벤트 기반(Event-driven)
+
+    1) Event: 클릭, 키보드 입력, 화면 변화, 등등 컴퓨터에서 발생되는 시스템의 변화
+       Event - Event Listener
+               CallBack Function --> 함수로 구현, 콜백함수
+    * Event Loop (이벤트 루프) : 
+    * Call Stack (호출 스택) : LIFO(Last In First Out)
+                  queue (큐) : FIFO(First In First Out)
+    * Global Context(자바에서 전역변수) : 
+    <-> Local Context(자바에서 지역변수) : 다른 곳에서 사용 불가(메모리가 날아감)
+    Context: 함수 실행 시 사용가능한 환경 (메모리 정보, 변수)
+    anonymous function: 처음 실행 시의 Global Context
+
+    * SetTimeout -> 콜백 이해
+    ms 이후에 등록한 홤수(콜백 함수)를 실행시킨다.
+
+    - 이벤트 루프 : 이벤트 발생 시 호출할 콜백함수들을 관리
+                    콜백 함수의 실행 순서를 결정
+    - 백그라운드 : 타이머, 이벤트 리스너가 대기
+                  여러 작업이 동시에 시행될 수 있다.
+    - 태스크 큐 : 이벤트 발생 후 백그라운드에서 태스크 큐로 타이머나 이벤트 리스너를 전송, 큐의 순서대로 실행된다.
+
+
+    2) ex) 책 내용 참조
+    function first() {
+    second();
+    console.log("첫 번째");
+    }
+    function second() {
+        third();
+        console.log("두번째");
+    }
+    function third() {
+        console.log("세번째");
+
+    }
+    first(); 실행결과는 스택에 따른 제일 마지막에 호출된 세번째 부터 시행
+
+    1) 전역 컨텍스트인 어나니머스가 호출스택에 들어갑니다.
+    2) 그 뒤 setTimeout이 호출 스택에 들어갑니다.
+    3) 호출 스택에 들어간 순서와 반대로 실행되므로, setTimeout이 먼저 실행됩니다.
+    4) setTimeout이 실행되면 타이머와 함께 run 콜백을 백그라운드로 보내고, setTimeout은 호출스택에서 빠집니다.
+    5) 
