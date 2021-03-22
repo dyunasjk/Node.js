@@ -221,6 +221,7 @@
 
     - 프로미스 사용 규칙
     1) 프로미스 객체 생성 : resolve();, reject()를 매개변수로 가진 콜백함수(화살표 함수)
+    resolve(성공 리턴값) -> then으로 연결, reject(실패리턴값) => catch로 연결 fianlly 부분은 반드시 실행
     2) 생성된 객체에 then(), catch(), fianlly 메소드를 호출
        세개의 메소드의 매개변수: 콜백함수로 구현
         resolve() 호출 --> then()실행
@@ -244,3 +245,155 @@
     }) .fianlly(() => {
         console.log('무조건');
     })
+
+    - 프로미스의 then 연달아 사용 가능(프로미스 체이닝)
+    then 안에서 return한 값이 다음 then으로 넘어감
+    return 값이 프로미스면 resolve 후 넘어감
+    에러가 난 경우 바로 catch로 읻ㅇ
+    에러는 catch에서 한번에 처리
+
+    function findAndSaveUser(Users) {
+        Users.findOne({}, (err, user) => { // 첫번째 콜백
+            if (err) {
+                return consol.error(err);
+            }
+            user.name = 'zero';
+            user.save((err) => { // 두번째 콜백
+                if (err) {
+                    return.console.error(err);
+                }
+                Users.findOne({ gender: 'm'}, (err, user) => { // 세번째 콜백
+
+                });
+            });
+        });
+    } // 콜백 지옥 시작
+
+    function finadAndSaveUser(Users) {
+        Users/findOne({}) // findOne() - 프로미스 객체 리턴
+            .then((user) => {
+                user.name = 'zero';
+                return user.save(); // save() - 프로미스 객체 리턴
+            })
+            .then((user) => {
+                return. Users.findOne({ gender: 'm'}); //
+            })
+            .then((user) => { // 
+                // 생략
+            })
+            .catch(err => {
+                console.error(err); // 콜백 처리
+            });
+    } // 해당 코드는 전체 한줄의 코드로 작동
+
+    * 여러개의 프로미스 한꺼번에 실행하기
+    :Promise.all()
+
+    const promise1 = Promise.resolve('성공1');
+    const promise2 = Promise.resolve('성공2');
+    // Promise.resolve(), Promise.reject()
+    // 즉시 resolve하는 프로미스 객체 생성
+    // 즉시 reject하는 프로미스 객체 생성
+    // promise1.then().catch().finally();
+
+    
+    Promise.all([promise1, promise2]) // 두개를 실행해서 성공해야 then을 실행
+        .then((result) => {
+            console.log(result); // [성공1, 성공2]
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+    // 콜백 지옥의 코드를 바꾸려면 모든 메소드가 프로미스 객체를 뱉을 수 있어야한다.
+
+2.1.8 async/await: ES2017부터, Node.7.6 부터 지원
+    - ES6+/ES2015+
+    - 프로미스가 콜백헬을 극복하고 있지만, 코드의 장황성은 해소하지 못함.
+    
+    - 프로미스 코드
+    function findAndSaveUser(Users) {
+        Users/findOne({}) // findOne() - 프로미스 객체 리턴
+            .then((user) => {
+                user.name = 'zero';
+                return user.save(); // save() - 프로미스 객체 리턴
+            })
+            .then((user) => {
+                return. Users.findOne({ gender: 'm'}); //
+            })
+            .then((user) => { // 
+                // 생략
+            })
+            .catch(err => {
+                console.error(err); // 콜백 처리
+            });
+    }
+
+    1) function을 async function으로 변경
+        function finadAndSaveUser(Users) {
+        } =>
+        async function findAndSaveUser(Users) {
+        }
+    2) 프로미스 객체 반환 함수들에 호출
+    변수 = await 함수명();
+        async function findAndSaveUser(Users) {
+            try {
+            let user = Users.findOne({});
+            user.name = 'zero';
+            user = await user.save();
+            user = await Users.findOne({gender:'m'});
+            // ... 생략
+            } catch(err) {
+                console.log(err);
+            }
+        }
+    ===> arrow function으로 처리(p.80)
+
+    * async 함수는 항상 프로미스 객체를 반환한다!!
+    async function findAndSaveUser(Users) {
+        //...
+        return new Promise({...});
+    }
+    findAndSaveUser().then(()=> {
+
+    });
+
+    async function other() {
+        const res = await finadAndSaveUser();
+    }
+// 서버용 자바스크립트, 노드의 백엔드 용
+
+2.2 Front-End JS
+: html 내의 script 태그 안에 작성되어 실행되는 js코드
+// node.js 는 풀스택 언어(프론트,백엔드 둘다 가능)
+--------- DOM, BOM, AJAX의 개념 미리 숙지 필요 -------------
+DOM: Document Object Model : html소스코드를 객체로 만들어 document객체로 관리
+    - element: html, head, body 등등, node(노드js와는 다름) => 태그들을 전부 객체로 만든것
+    - attribute: 시작태그에 있는 속성
+      - a 태그의 href
+      - getElementByID
+      - getElementByTagName
+      - getElementByClassName
+      - querySelector, querySelectorAll // 전통적인 방법
+// 참조 : https://ko.javascript.info/dom-navigation
+
+BOM: Browser Object Model : window객체, Document객체, location객체, history객체 등등...
+    - location.href = '주소'; // redirection 기능 구현시 사용
+
+2.2.1 AJAX(Asynchronous Javascript And XML) : 비동기 자바스크립트와 xml
+    - 웹에서 일반프로그래밍이 가능하다라는 것을 증명한 기술
+    - Gmail이 AJAX 기능을 구현함으로써, 그리고 구글 맵으로 증명완료
+    - 비동기(전송 요청 후 다른 작업하다가 데이터 수령후 해당 화면 띄움)
+
+    - 웹페이지 전환없이 새로운 데이터를 불러와서 화면에 변화를 부분적으로 하게 하는 기능
+        - Web 2.0 시대 도래
+        - MashUP, OpenAPI라는 기능을 구현 가능해짐
+    
+    - AJAX 요청 응답 라이브러리
+        1. XMLHttpRequest 객체: 표준
+        2. fetch() => promise 개념 필수
+        3. $.ajax() ===> jQuery 라이브러리 포함
+        4. axios(): 프로미스, async/await 잘 지원
+        // 사용법의 형태만 다름. 단 주된 사용은 axios를 쓰게 될 것
+
+        // 사용법 참조
+        // https://www.air-h.jp/articles/emopro/ajax%e3%81%be%e3%81%a8%e3%82%81xhr-jquery-axios-fetch/
