@@ -397,3 +397,35 @@ BOM: Browser Object Model : window객체, Document객체, location객체, histor
 
         // 사용법 참조
         // https://www.air-h.jp/articles/emopro/ajax%e3%81%be%e3%81%a8%e3%82%81xhr-jquery-axios-fetch/
+
+        - axios
+        front.html 사용예제
+        - axios.get(): get요청 대응하는 ajax 기능 호출 메소드
+            반환값: 프로미스 객체
+        - axios.post(): POST요청 처리
+            반환값: 프로미스 객체 
+
+        - p.83에서 예제 코드는 실행시 에러 발생
+          이유 : CORS 에러 => p.432 참고
+
+2.2.2 FormData : form 태그와 관련되어있고, 동적으로 관리가 가능
+    const 
+
+2.2.3 encodeURIComponent, decodeURIComponent
+    : url 주소에서 한글처리하기 위한 메소드
+    - BOM 중의 window객체의 메소드
+      window객체는 BOM객체의 최상위 객체
+      alert(), confirm(), open(), close() 등등의 메소드들
+      <== window.을 생략 가능
+
+2.2.4 데이터 속성과 dataset
+    * HTML5에서 태그에 사용자 정의 속성을 사용할 수 있다.
+      data-+ 사용자 정의 속성 명
+      data-id
+      data-user-job
+
+    => dataset으로 접근할때(사용할 때) 키 값은 data-를 때어낸 단어를 사용
+    data- 다음에 합성어(user-job) ===> userJob
+    단어1-단어2 ===> 단어1+단어2의 첫글자를 대문자로
+    dataset.(추가하고자 하는것) = String 과 같은 식으로 html elements 에서 출력 값을 조절할 수 있다.
+    

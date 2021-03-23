@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <li data-id="1" data-user-job="Programmer">정건희</li>
+        <li data-id="2" data-user-job="Designer">이건희</li>
+        <li data-id="3" data-user-job="Programmer">주건희</li>
+        <li data-id="4" data-user-job="Admin">받건희</li>
+    </ul>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios."></script>  -->
+    <script>
+    /* //    can coding here
+        // axios.get("https://www.zerocho.com/api/get") // 프로미스 객체
+        // .then(
+        //     (result) => { //프로미스의 then 콜백
+        //         console.log(result); // GET 방식 요청한 응답결과
+        //         console.log(result.data); // 응답결과중 전송받을 데이터,JSON으로 받아옴. 기존 xhr 이용시 데이터보다 태그가 훨씬 많아서 데이터 전송량이 훨씬 많았음
+        //     }
+        // )
+        // .catch(
+        //     (err) => {
+        //         console.error(err);
+        //     }
+        // )
+        // async/ await
+        (
+            async () => { //async 화살표 함수 정의
+                          // 익명함수(anonymous function)
+                try {
+                    const result = await axios.get("https://www.zerocho.com/api/get") 
+                    console.log(result);
+                    alert(result.request.status==200? 'Success!': 'Failed');
+                    console.log(result.data);
+                } catch(err) {
+                    console.error(err);
+                }
+            }
+        ) (); // 괄호안에 익명함수를 정의하고, ();를 하여 익명함수 호출
+        (
+            async () => {
+                try {
+                    const result = await axios.post("https://www.zerocho.com/api/post/json",
+                    { // JSON객체로 서버에 요청시 전달할 입력값
+                        name:'정건희', birth:1998,
+                    });
+                    console.log(result);
+                    alert(result.request.status==200? 'Success!': 'Failed');
+                    console.log(result.data);
+                } catch(err) {
+                    console.error(err);
+                }
+            }
+      ) */
+/*    const formData = new FormData(); // form 데이터를 ajax로 넘긴다
+    formData.append('name', '정건희');
+    formData.append('item', 'Orange');
+    formData.append('item', 'Melon');
+    formData.has('item');
+    formData.has('money'); // ()안 있는지 확인
+    formData.get('item');
+    formData.getAll('item');
+    formData.append('test', ['hellow', 'Yeongjin']);
+    formData.get('test');
+    formData.set('item', 'apple');
+    formData.getAll('item'); */
+
+/*    (
+            async () => {
+                try {
+                    const formData = new FormData();
+                    const name = document.querySelector('input');
+                    formData.append('name', 'Mr.JEong');
+                    formData.append('birth', 1998);
+                    const result = await axios.post("https://www.zerocho.com/api/post/json",formData);
+                    console.log(result);
+                    alert(result.request.status==200? 'Success!': 'Failed');
+                    console.log(result.data);
+                } catch(err) {
+                    console.error(err);
+                }
+            }
+      ) (); */
+    /*  (
+            async () => {
+                try {
+                    const result = await axios.get(`https://www.zerocho.com/api/search/${encodeURIComponent('노드')}`);
+                    console.log(result);
+                    alert(result.request.status==200? 'Success!': 'Failed');
+                    console.log(result.data);
+                } catch(err) {
+                    console.error(err);
+                }
+            }
+      ) (); // 주소 인코딩, 디코딩*/
+        console.log(document.querySelectorAll('li'));
+        console.log(document.querySelectorAll('li')[3].dataset.monthSalary = 1000);
+    </script>
+</body>
+</html>
