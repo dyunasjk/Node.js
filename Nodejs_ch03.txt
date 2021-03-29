@@ -1,0 +1,77 @@
+3. 노드 기능 알아보기
+외우기보다 익숙해지기
+시간 많이 없기에 외우는 것도 잊어버린 경우에 다시 찾아보기
+
+3.1 REPL 사용하기
+Read, Evaluate, Print, Loop
+읽고, 평가하고, 출력하는 루프
+
+java.exe // 바이너리 코드 읽는것
+javac.exe .java => .class // 컴파일러
+
+node.js에도 소스코드를 읽고, 평가하고, 그 결과를 출력해주는
+명령어가 있다 => node.exe
+스크립트 언어에서 주로 실행을 위해 사용됨
+---> 스크립트 언어는 미리 컴파일 하지 않고
+    한줄 한줄 그 결과를 출력
+
+JavaScript의 실행환경
+- 1. Browser의 콘솔 탭
+- 2. Node의 콘솔: REPL => node.exe 가 된다
+    실행방법
+    1. Crtl + ` 입력 > node 입력 > 엔터
+    2. 실행하려는 폴더에 가서 오른쪽 마우스 버튼 > powerShell 실행 > node 입력 > 엔터
+
+    종료방법
+    1. Ctrl + C 2번 입력
+    2. .exit > 엔터
+
+    * test : p91
+    * 소스가 일반적으로 길다. ---> 파일로 저장 후 실행시키는 것이 일반적
+
+3.2 JS 파일 실행하기
+    1) helloWorld.js 파일 생성
+    2) node 파일명
+       node helloWorld[.js] // 확장자는 생략가능
+
+3.3 모듈로 만들기
+    모듈(module): 특정 기능을 하는 함수나 변수들의 집합
+
+    실습: 3파일로 작성
+    index.js
+    func.js
+    var.js
+
+    모듈로 만들기 : 소스코드에서 module.exports = 변수, 객체, 함수
+    모듈로 사용하기 : require 사용
+
+3.4 노드 내장 객체 알아보기
+    * 내장 객체: 이미 노드가 정의해둔 모델
+    * require 없이 사용가능한 객체
+
+    사용해본 내장객체
+    console 객체,  module 객체
+
+    window 객체: BOM객체, 브라우저에서만
+    document 객체: DOM객체, 브라우저에서만
+
+3.4.1 global
+    전역 객체 --> 파일 간의 데이터 공유가 가능 ---> 남용하지 말것!!
+    생략 가능
+
+3.4.2 Console : [global.]console // global. 생략가능
+
+    - console.log()
+    - console.error(), console.trace()
+    - console.time(레이블), console.timeEnd(레이블)
+
+3.4.3 Timer
+- setTimeout(콜백함수, 밀리초)
+- setInterval(콜백함수, 밀리초)
+- setImmediate(콜백함수)
+set + ~~~함수의 반환값 : 타이머 id
+-->
+타이머 취소: clear + ~~~함수(id)
+clearTimeout(id)
+clearInterval(id)
+clearImmediate(id)
