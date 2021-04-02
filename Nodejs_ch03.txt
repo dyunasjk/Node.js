@@ -66,12 +66,159 @@ JavaScript의 실행환경
     - console.time(레이블), console.timeEnd(레이블)
 
 3.4.3 Timer
-- setTimeout(콜백함수, 밀리초)
-- setInterval(콜백함수, 밀리초)
-- setImmediate(콜백함수)
+- setTimeout(콜백함수, 밀리초) : 주어진 밀리초 이후에 콜백 함수를 실행
+- setInterval(콜백함수, 밀리초) : 주어진 밀리초마다 콜백 함수 반복 실행
+- setImmediate(콜백함수) : 콜백함수 즉시 실행
 set + ~~~함수의 반환값 : 타이머 id
 -->
 타이머 취소: clear + ~~~함수(id)
 clearTimeout(id)
 clearInterval(id)
 clearImmediate(id)
+
+3.4.4 __filename, __dirname : 경로에 대한 정보 제공
+
+    - __filname: 현재 실행중인 파일 경로
+    - __dirname: 현재 실행중인 폴더 경로
+
+3.4.5 module, exports, require
+
+    - module.exports말고도 exports 객체로도 모듈 생성 가능
+    - module.exports와 exports가 같은 객체를 참조하기 때문에 가능
+    - console.log(module.exports === exports) 시 true값이 나옴
+    - exports 객체에 add 함수 넣으면 module.exports에도 add 함수 사용 가능
+
+    둘의 참조 관계
+           참조               참조
+    exports -> module.exports -> {}
+
+    * warning
+    사용시 주의사항
+    - module.exports에는 모든값 대입 가능
+    - exports에는 속성명과 속성값 대입. 다른 값 대입시 참조관계가 끊겨 모듈 기능 X
+    - exports 사용시 객체만 사용가능
+    => func.js와 같이 module.exports에 함수를 대입한 경우 exports로 바꿀수없다
+    - 한 모듈에 exports, module.exports 동시 사용 X
+
+    - require: 함수이고, 함수는 객체 => 객체로서의 속성 있음
+    - require가 반드시 파일 최상단, 최하단에 위치할 필요X
+    - 원하는 곳에서 사용 가능
+    
+    - require.cache: 파일이름이 속성명으로 들어가있으며 속성값은 각파일의 모듈 객체
+      한번 require 한 파일은 require.cache에 저장 => 새로 안불러오고 캐시에서 불러옴
+      새로 불어오길 원한다면 require.cache 속성 제거 => 문제 야기 가능성 존재
+      
+    - require.main: 노드 실행시 첫 모듈 가리킴
+      require.js = require.main(여기선)
+      객체 모양은 .cache와 동일.
+      현재 파일이 처 모듈인지 알아보려면 require.main === module 실행 => node require로 실행시 false 반환
+      첫 모듈의 이름을 알아보면 require.main.filename으로 확인
+
+    - 순환참조 : 참조하는 대상이 서로 물려있어서 참조할 수 없게 되는 현상
+      서로 참조를 하게 되면 끝이 없다.
+      결과적으로 빈 객체를 만들고 에러는 미발생 => 예기지 못한 동작 발생
+      절대 발생하면 안되는 문제 중 하나
+
+3.4.6 process
+    - 현재 실행되고 있는 노드 프로세스에 대한 정보 소유
+
+    .1 process.env
+    : 출력되는 정보들이 시스템의 환경변수 => 환경변수는 노드에 직접 영향 가능
+      ex) UV_THREADPOOL_SIZE, NODE_OPTIONS
+    
+    * NODE_OPTIONS=-max-old-space-size=8192
+    UV_THREADPOOL_SIZE=8
+    왼쪽이 환경 변수 이름, 오른쪽이 값
+
+    - NODE_OPTIONS: 노드를 실행할 때의 옵션들을 입력받는 환경변수
+      -max-old-space-size=8192 : 노드 메모리 8기가 사용가능하게 함
+
+    - UV_THREADPOOL_SIZE: 스레프풀의 스레드 개수 조절 가능
+
+    * 이것들 외에도 사용자 임의로 환경 변수 저장 가능
+      process.env 서비스의 중요한 키를 저장하는 공간으로도 사용가능
+      서버, DB의 비밀번호, 각종 API키 등을 저장할 때 사용
+      넣는 방법은 운영체제마다 다르지만, 동일하게 넣는 방법 존재
+      dotenv사용하여 가능
+
+    .2 process.nextTick(콜백): 이벤트 루프가 다른 콜백함수들보다 nextTick의 콜백함수를 우선으로 처리하도록 함.
+    - process.nextTick은 다른 set+~~함수(id) 보다도 먼저 실행
+    - Promise.resolve()도 다른 콜백들보다 우선시
+    - 위 둘을 마이크로태스크로 따로 구분지어 부름
+
+     * 마이크로태스크의 재귀호출
+     - 위 둘은 다른 이벤트루프에서 대기하는 콜백 함수보다도 먼저 실행
+     - 둘을 재귀 호출하게 되면 이벤트 루프는 마이크로 태스크를 우선처리하므로
+       콜백 함수들이 실행되지 않을 수도 있음
+
+    .3 process.exit(코드) : 실행중인 노드 프로세스 종료
+    - 서버 환경에서 이 함수를 사용하면 멈추므로, 특수한 경우 제외하곤 서버에서 사용 X
+    - 서버가 아닌 독립적인 프로그램에서 수동으로 멈추기 위해 사용
+    - 인수로 코드 번호 주기 가능
+      - 인수를 안주거나 0을 주면 정상종료
+      - 1을 주면 비정상 종료 => 에러가 발생해서 종료하는 경우
+
+3.5 노드 내장 모듈 사용하기
+    .1 OS : 운영체제와 관련된 정보를 가져올수 있다
+       - .arch() : process.arch와 동일
+       - .platform : process.platform과 동일
+       - .type() : OS 종류 확ㅇ인
+       - .uptime() : 부팅 이후 흐른 시간 확인 / process.uptime : 노드 실행시간
+       - .hostname() : 컴퓨터의 이름
+       - .release() : 운영체제 버전
+       - .homedir() : 홈 디렉토리 경로 확인
+       - .tmpdir() : 임시 파일 저장 경로
+       - .cpus() : 코어 정보 확인 / .length추가하여 코어 개수 확인가능
+       - .freemem() : 사용가능한 램
+       - .totalmem() : 전체 메모리 용량
+       - .constants() : 각종 에러, 신호에 대한 정보 포함
+    * 운영체제 별 다른 서비스 제공 시 유용하게 사용 가능
+
+    .2 path: 폴더, 파일의 경로 조작 모듈
+    필요 이유: 운영체제 별 경로 구분자가 다르기 때문.
+
+    - .sep: 경로의 구분자
+    - .delimiter: 환경 변수 구분자
+    - .dirname(경로): 파일이 위치한 폴더 경로
+    - .extname(경로): 파일의 확장자
+    - .basename(경로, 확장자): 파일의 이름(확장자 포함), 파일의 이름만 표시 시 basename 두번째 인수로 파일 확장자
+    - .parse(경로): root, dir,base, ext, name으로 분리
+    - .format(객체): .parse()한 객체를 파일경로로 합침
+    - .normalize(경로): \,/를 여러번 사용 혹은 혼용시 정상적인 경로로 변환
+    - .isAbsolute(경로): 파일의 경로가 절대 경로인지 상대 경로인지 true or false로 반환
+    - .relative(기준 경로, 비교 경로): 경로 두개 넣으면 첫번째 경로에서 두번째경로로 가는 방법 알려줌
+    - .join(경로, ...): 여러 인수 합쳐서 하나의 경로로 만듬. 상대 경로와 현위치도 알아서 처리. 상대 경로로 처리
+    - .resolve(경로): 절대 경로로 인식해 앞경로 무시
+
+    .3 url : 인터넷 주소 조작을 쉽게 해주는 모듈
+    .4 querystring: 기존 노드 url 사용시 search 부분을 사용하기 쉽게 객체로 만들어주는 모듈
+    .5 crypto: 암호화를 도와주는 모듈
+      1. 단방향 암호화
+      2. 양방향 암호화
+    
+    .6 util: 각종 편의 기능을 모아둔 모듈, API 지속적으로 추가
+             deprecated되어 사라지는 경우 존재(다른 기능이 더좋아 더이상 쓰지 않게되는 문법)
+    
+    .7 worker_threads: 멀티 쓰레드 작업 가능 모듈
+
+    .8 child_process: 다른 프로그램을 실행 또는 명령어 수행 시 사용
+                      다른 언어의 코드를 실행하고 결괏값 반환 가능
+                      현재 노드 프로세스 외에 새로운 프로세스를 띄워서 명령 수행
+                      결과 반환하기 때문에 이름 붙여짐
+    
+    .9 기타 모듈들
+      - assert: 값을 비교하여 프로그램이 제대로 동작하는지 테스트
+      - dns: 도메인 이름에 대한 IP 주소를 얻어내는데 사용
+      - net: TCP, IPC 통신시 사용
+      - string_decoder: 버퍼 데이터 문자열로 반환
+      - tls : TLS, SSL 관련된 작업시 사용
+      - tty : 터미널과 관련된 작업시 사용
+      - dgram: UDP와 관련된 작업 시 사용
+      - v8: V8엔진에 직접 접근 시 사용
+      - vm: 가상 머신에 직접 접근할때 사용
+
+3.6 파일 시스템 접근하기
+    - fs모듈: 파일 시스템에 접근하는 모듈
+              파일 생성, 삭제, 읽기, 쓰기
+              폴더 생성, 삭제 가능
+    - 특징: 콜백 형식의 모듈 => 프로미스 형식으로 변환하여 사용
