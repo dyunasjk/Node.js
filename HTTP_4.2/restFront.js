@@ -11,6 +11,7 @@ async function getUser() {
             span.textContent = users[key];
             const edit = document.createElement('button');
             edit.textContent = '수정';
+            // edit.innerText, edit.innerHTML
             edit.addEventListener('click', async () => {
                 const name = prompt('바꿀 이름을 입력하세요');
                 if (!name) {
@@ -45,8 +46,24 @@ async function getUser() {
 }
 
 window.onload = getUser; // 화면 로딩 시 getUser 호출
+// 자바의 main meythod 역할, 화면 로딩시 getUser 호출
 // 폼 제출 시(submit) 실행
+/* <form id = "form">
+        <input type = "text", id ="username">
+        <button type = "submit">등록</button>
+    </form>
+*/
+// == document.getElementById('form') == document.querySelector('#form');
 document.getElementById('form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const name = e.target.username.value;
-})
+    if (!name) {
+        return alert('need your name');
+    }
+    try {
+        await axios.post('/user', { name });
+        getUser();
+    } catch (err) {
+        e.target.username.value = ' ';
+    }
+});
