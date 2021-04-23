@@ -81,7 +81,30 @@
     Cookie를 사용하는 이유
     - HTTP의 특성때문
       HTTP는 상태를 저장하지 않는다. => Stateless Protocol
+      사용자의 구별이 어려움 : 로그인 처리
 
       쿠키: 키와 값의 쌍
       매 요청마다 서버에 동봉해서 보냄
       서버는 쿠키를 읽어 누구인지 파악
+
+    - req
+      req.url
+      req.method
+      req.headers.cookie: 요청 헤더와 쿠키정보
+
+      쿠키: 키=값
+    * 쿠키 설정하기
+    req.writeHead(응답코드, {'Set-Cookie':'key1=value1'; key2=value2;...})
+
+    * HttpOnly:
+      JS(브라우저에서 실행되는)에서 쿠키 접근 불가능하게 설정
+      브라우저에서 실행된 JS: HTML 파일 안 script태그 내의 JS
+
+    * Cookie의 단점: 클라이언트(브라우저)에 저장 --> 해킹의 가능성이 높아진다
+    쿠기의 조작이 가능해짐
+
+    => 대책(방지책) 으로 나온 것이 Session
+    Session은 쿠키의 도움없이는 불가
+    세션은 서버에 정보를 저장함
+    서버에서 Redis 활용
+    

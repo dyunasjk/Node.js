@@ -1,0 +1,27 @@
+5. Node Package Manager(NPM) 
+    npm 사용법
+
+    .1 npm 알아보기
+    ---> 대체 관리툴 존재 : yarn
+    npm: 노드 진영의 디폴트 패키지 관리자
+    yarn: facebook 사의 패키지 관리자
+
+    .2 Package.json: 패키지 관리파일
+    개발된 서비스에 필요한 패키지 정보를 저장
+
+    * 노드 프로젝트 시작전에 폴더 내부에 무조건 Package.json을 작성해야함
+
+    * Package.json 작성하기
+    - console에서 npm init입력
+
+    * 필요한 패키지 설치하기
+    - npm install 패키지명 [--save]
+      npm install express
+      npm install morgan cookie-parser express-session
+      npm install --save-dev nodemon
+      npm install -D nodemon
+     
+
+    * package.json이 존재할 경우
+      내 프로젝트 실행 시 npm install 명령어 입력
+      생성된 json 파일 내 dependencies 항목에 의해 관리됨
