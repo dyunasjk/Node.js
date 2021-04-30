@@ -1,0 +1,21 @@
+{
+  "name": "learn-express",
+  "version": "0.0.1",
+  "description": "Learn about Express",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app"
+  },
+  "author": "dyunas",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "react-script": "^2.0.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
+  "keywords": [
+    "express"
+  ]
+}
