@@ -1,0 +1,45 @@
+6. Express 웹서버 만들기
+6.1 Express 프로젝트 만들기
+1) express generator 사용
+2) 직접 구성: 권장
+
+* express 프로젝트 시작하기
+1) npm init ==> package.json
+2) express 패키지 설치
+   npm i express
+3) nodemon 설치
+   npm i -D nodemon // nodemon : 노드의 모니터(node.exe의 모니터)
+
+4) app.js 작성
+5) npm start 서버 실행
+6) http://localhost:3000/ 접속 테스트
+7) 폴더 작성
+   - views, models, routes
+     MVC 모델
+
+6.2 자주 사용되는 미들웨어
+  * 미들웨어(Middelware)란?
+    - 요청과 응답 사이에 어떤 처리를 하는 것
+  * 사용자 정의 미들웨어 작성
+    - 233페이지 내용 참조
+  * 다양한 미들웨어가 존재
+  1) 미들웨어 패키지 설치
+     npm i morgan cookie-parser express-session 
+
+  2) 도구 패키지 설치
+     npm i dotenv
+
+  3) app.js 작성
+  4) .env 파일 작성
+
+  2.1 morgan : log처리 관련
+
+  GET                 /  500                     7.408 ms - 50
+  요청 메소드 요청 주소   응답코드(http 상태 코드) 응답속도 - 응답바이트
+
+  2.2 static : 정적 resource들에 대한 미들웨어
+
+  2.3 body-parser
+  : 요청 본문처리 미들웨어
+  req.body에 요청본문처리한 객체를 설정해줌
+  multer: 요청 본문의 첨부파일 처리 미들웨어
