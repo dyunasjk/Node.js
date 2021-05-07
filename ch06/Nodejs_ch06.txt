@@ -54,3 +54,18 @@
    6.5.2.4 include
    : 포함하다
    * include 파일 경로
+
+   6.5.2.5 extends and block
+   extends: 확장하다
+   block: for {}: for문 블럭
+
+   extebds: 레이아웃 파일 정의하고
+
+   {% block style %}
+   style 이름의 블록이 대체될 부분을 지정
+   {% endblock %}
+
+   {% block [block name] %}
+   {% end block %}
+
+   {% extends %}

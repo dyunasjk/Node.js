@@ -1,0 +1,11 @@
+1) MariaDB 설치
+2) MariaDB 서버 실행
+   MariaDB 설치된 폴더의 bin폴더에서 mysqld # 명령어 입력
+3) MariaDB 클라이언트 실행
+   mysqld
+   mysql -u root -p [-h localhost]
+   3-1) 클라이언트 중지
+   mysql>
+   MariaDB> exit
+4) 서버를 중지
+   mysqladmin -u root -p shutdown
