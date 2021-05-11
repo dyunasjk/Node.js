@@ -9,3 +9,38 @@
    MariaDB> exit
 4) 서버를 중지
    mysqladmin -u root -p shutdown
+
+
+   7.6.2 모델 정의하기
+   * MySQL의 테이블: 모델과 1대1로 매핑됨, sequelize 패키지가 해주는 역할
+   - users: User
+   - comments: Comment
+   
+   Table: 소문자로 시작, 복수형
+   model: 대문자로 시작, 단수형
+
+   1) 모델 작성하기
+   models/user.js
+   models/comment.js
+   
+   7.6.3 관계 정의하기
+   * 관계
+   - 1:1 (일대일)
+     먼저 1인 관계 테이블에서 hasOne()
+     1인 다른 관계테이블에서 belongsTo()
+     이용 관계 정의
+   - 1:N (일대다)
+     먼저 1인 관계 테이블에서 hasMany()
+     N인 다른 관계테이블에서 belongsTo()
+     이용 관계 정의
+   - N:M (다대다)
+     n인 관계테이블에서 belongsToMany(M모델, {through: '중간테이블'})
+     M인 관계테이블에서 belongsToMany(N모델, {through: '중간테이블'})
+     중간테이블: 시퀄라이즈에서 자동으로 생성해줌
+     
+
+   * 사용자 테이블: 게시글 테이블의 관계
+
+
+   DB BackUP
+   mysqldump -u 계정 -p 비밀번호 데이터베이스 명 > 파일 백업명
