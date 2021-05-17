@@ -23,3 +23,13 @@
 
       - 4) DB 관련 설정 --> config, models, migrations, seeders 폴더 생성
            npx sequelize init
+
+      - 5) 각종 폴더 만들기(398페이지 참고)
+           mkdir views routes public passport
+
+      - 6) front controller 역할 하는 app.js파일 생성
+      - 7) .env(환경설정 파일) 생성
+      - 8) express와 미들웨어 설치
+           npm i express cookie-parser express-session morgan multer nunjucks
+           npm i dotenv
+           npm i -D nodemon
