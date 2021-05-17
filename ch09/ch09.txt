@@ -42,4 +42,5 @@
         4) views 폴더에 html 소스 작성(401~409page)
            layout.html
            profile.html
-           
+        5) 실행
+           npm start http://localhost:8001
