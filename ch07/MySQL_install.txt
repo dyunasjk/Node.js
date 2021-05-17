@@ -42,7 +42,13 @@
    * 사용자 테이블: 게시글 테이블의 관계
 
 
-   DB BackUP
-   mysqldump -u 계정 -p 비밀번호 데이터베이스 명 > 파일 백업명
+    DB BackUP
+    mysqldump -u 계정 -p 비밀번호 데이터베이스 명 > 파일 백업명
 
-   
+    front controller 이미지 참조
+    Spring Web MVC 개요
+    모든 요청 및 응답은 Front controller를 통해 입출력
+
+    https://hilucky.tistory.com/245 사이트 그림 참조
+
+    

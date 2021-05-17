@@ -1,0 +1,25 @@
+9. Express로 SNS 만들기
+    - Nodebird
+      aync, await에 익숙함을 전제
+      Promise ==> async, await
+      
+
+    -1. 로그인 기능
+    -2. 이미지 업로드 기능
+    -3. 게시글 작성
+    -4. 해시태그 검색
+    -5. 팔로잉 기능
+
+    * 작업 환경 구축
+      - 1) express-generator 이용
+      - 2) 직접 구축해보기
+
+    * 직접 구축해보기
+      - 1) mkdir nodebird
+      - 2) package.json 생성
+           npm init
+      - 3) 패키지 설치
+           npm i sequelize mysql2 sequelize-cli
+
+      - 4) DB 관련 설정
+           npx sequelize init

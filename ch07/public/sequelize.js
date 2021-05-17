@@ -12,7 +12,7 @@ async function getUser() {
     const users = res.data;
     console.log(users);
     const tbody = document.querySelector('#user-list tbody');
-    tbody.innerHTML = '';
+    tbody.innerHTML = ''; // 안에 적힌 내용 모두 리셋
     users.map(function (user) {
       const row = document.createElement('tr');
       row.addEventListener('click', () => {
@@ -99,14 +99,14 @@ document.getElementById('user-form').addEventListener('submit', async (e) => {
   const name = e.target.username.value;
   const age = e.target.age.value;
   const married = e.target.married.checked;
-  if (!name) {
+  if (!name) { // data validation 데이터 정당화: 의미없는 데이터 거르는 것
     return alert('이름을 입력하세요');
   }
   if (!age) {
     return alert('나이를 입력하세요');
   }
   try {
-    await axios.post('/users', { name, age, married });
+    await axios.post('/users', { name, age, married }); // 이름과 변수의 명이 같으면 사용 가능한 축약법
     getUser();
   } catch (err) {
     console.error(err);
