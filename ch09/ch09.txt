@@ -33,3 +33,13 @@
            npm i express cookie-parser express-session morgan multer nunjucks
            npm i dotenv
            npm i -D nodemon
+      - 9) 소스 코딩
+
+        * 소스 코딩
+        1) app.js (399페이지)
+        2) .env (400페이지)
+        3) routes/pages.js (400페이지)
+        4) views 폴더에 html 소스 작성(401~409page)
+           layout.html
+           profile.html
+           
