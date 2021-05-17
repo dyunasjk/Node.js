@@ -44,3 +44,5 @@
 
    DB BackUP
    mysqldump -u 계정 -p 비밀번호 데이터베이스 명 > 파일 백업명
+
+   
