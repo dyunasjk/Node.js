@@ -2,8 +2,8 @@ const express = require('express');
 
 const router = express.Router();
 
-router.use((req, res, next) => {
-  res.locals.user = null;
+router.use((req, res, next) => { // 라우터에서 사용되는 미들웨어 정의
+  res.locals.user = null; // res.loacls --> nunjucks에서 사용됨
   res.locals.followerCount = 0;
   res.locals.followingCount = 0;
   res.locals.followerIdList = [];
@@ -18,9 +18,9 @@ router.get('/join', (req, res) => {
   res.render('join', { title: '회원가입 - NodeBird' });
 }); // GET .join 요청처리 라우터
 
-router.get('/', (req, res, next) => {
+router.get('/', (req, res, next) => { // 최초 접속하는 부분 
   const twits = [];
-  res.render('main', {
+  res.render('main', { // main.html 화면을 만드는 부분
     title: 'NodeBird',
     twits,
   });

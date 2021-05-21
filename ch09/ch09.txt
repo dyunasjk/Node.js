@@ -44,3 +44,46 @@
            profile.html
         5) 실행
            npm start http://localhost:8001
+
+9.2  DB세팅
+     * MySQL과 sequelize 세팅
+     - MariaDB
+
+     * Stack Overflow에서 참고
+     * 테이블
+     - users, 사용자 테이블, 로그인 관련
+     - posts. 게시글 테이블, 게시글 정보
+     - hashtags, 해시태그 테이블
+     - followings, 팔로잉 모델, 팔로잉 관련 중간 테이블(users사용, N:M 관계)
+
+     * 사용가능 모델
+     - User, Post, Hashtag 모델
+     - Follow, PostHashtag: 시퀄라이저가 associate()를 통해 자동 생성
+       db.sequelize.models.Follow, db.sequelize.models.PostHashtag 형태로 사용가능
+
+     0) DB서버 실행
+        mysqld
+
+     1) models 폴더에 user.js, post.js, hashtag.js 생성
+
+     2) models 폴더에 index.js 파일 생성: 모델 정의 등록, 실제로 관계 설정 실행
+
+     3) config 폴더의 config.json을 환경에 맞게 설정
+     "development" : {
+          "username": "root",
+          "password": "nodebird",
+          "database": "node.js",
+          "host":"127.0.0.1",
+          "dialect": "mariadb"
+     },
+     npm i mysql2 ---> mysql2
+     npm i mariadb --> mariadb
+
+     4) DB서버에 DB생성, create database nodejs;
+     
+     5) 테이블 생성
+        app.js 수정
+        콘솔에서 npx sequelize db:create --> DB생성됨
+     
+     npm i -g sequelize 설치 시 --> sequelize db:create
+     npm i sequelize    설치 시 --> npx sequelize db:create
