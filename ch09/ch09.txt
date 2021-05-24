@@ -87,3 +87,8 @@
      
      npm i -g sequelize 설치 시 --> sequelize db:create
      npm i sequelize    설치 시 --> npx sequelize db:create
+
+9.3 passport 모듈로 로그인 구현
+     * loacl 로그인 기능 구현
+     1) passport 모듈 설치: 여권의 의미로
+     npm -i passport passport-local passport-kakao bcrypt
