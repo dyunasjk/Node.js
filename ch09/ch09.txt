@@ -92,3 +92,34 @@
      * loacl 로그인 기능 구현
      1) passport 모듈 설치: 여권의 의미로
      npm -i passport passport-local passport-kakao bcrypt
+
+     2) app.js 수정: passport 미들웨어 설정 및 연결 419~420p
+
+     3) passport/index.js 구현 420페이지
+
+     - 로그인 시 실행 과정
+     p.422
+     1. 라우터를 통해 로그인 요청이 들어옴(incomming)\
+     2. 라우터에서 passport.authenticate() 호출
+     3. 로그인 전력을 수행
+     4. 로그인 성공 시 사용자 정보 객체와 함께 req.login 호출
+     5. req.login()가 passport.serializeUser() 호출
+     6. req.session에 사용자 아이디만 저장
+     7. 로그인 완료
+
+     - 로그인 이후 과정
+     1. 요청이 들어옴
+     2. 라우터에 요청처리 의뢰가 되기전 passport.session() 미들웨어가 passport.deserializeUser() 호출
+     3. req.session 객체에 저장된 유저의 아이디로 데이터베이스에서 사용자 조회
+     4. 조회된 사용자 정보를 req.user에 저장
+     5. 라우터에서 req.user 객체 정보 사용 가능
+
+     9.3.1. 로컬 로그인 구현하기
+
+     4) 미들웨어 구현 : routes/middlewares.js
+
+     5) routes/page.js 를 수정: p.423
+
+     6) 로그인 과정 구현
+     6-1) 회원가입, 로그인, 로그아웃 라우터 구현: routes/auth.js
+     6-2) 
