@@ -5,6 +5,7 @@ const User = require('../models/user');
 
 module.exports = () => {
   passport.use(new KakaoStrategy({
+    // 로그인 위해 필요한 값
     clientID: process.env.KAKAO_ID,
     callbackURL: '/auth/kakao/callback',
   }, async (accessToken, refreshToken, profile, done) => {
@@ -14,6 +15,7 @@ module.exports = () => {
         where: { snsId: profile.id, provider: 'kakao' },
       });
       if (exUser) {
+        // auth.js의 콜백 (authError, user, info) => {} 호출
         done(null, exUser);
       } else {
         const newUser = await User.create({
@@ -27,6 +29,7 @@ module.exports = () => {
     } catch (error) {
       console.error(error);
       done(error);
+      // auth.js의 콜백 (authError, user, info) => {} 에러
     }
   }));
 };

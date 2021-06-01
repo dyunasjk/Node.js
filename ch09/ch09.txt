@@ -157,3 +157,23 @@
 
      10) 게시글 관련 라우터 구현: routes/post.js
      
+
+     14) req.user에 목록 변경
+         팔로워 수, 팔로잉 수 등 정보를 추가하기 위해
+         passport/index.js deserializeUser() 수정
+         441페이지
+
+         442페이지
+         캐싱
+         deserializeUser()에 정보
+         user의 정보
+         - 로그인한 사람의 정보
+         - 팔로워, 팔로잉 정보
+     
+     PWA --> 하이브리드 (ionic, 코르도바)
+     
+     Flutter -- Dart 언어
+
+     일렉트론
+     
+     IoT

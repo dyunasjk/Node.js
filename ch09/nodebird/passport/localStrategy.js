@@ -7,14 +7,14 @@ const User = require('../models/user');
 module.exports = () => {
   passport.use(new LocalStrategy({
     // 사용자로부터 입력받는 정보 설정
-    usernameField: 'email',
+    usernameField: 'email', // layout.html의 input태그의 name
     passwordField: 'password',
     // LocalStrategy 생성자의 첫번째 인수로 주어진 객체는 전략에 관한 설정을 하는곳
     // usernamefield와 passwordfield에는 일치하는 로그인 라우터의 req.body 속성명을 적으면 됨
     // req.body.email에는 이메일 주소가, req.body.password에 비밀번호가 담겨 들어오므로 email과 password 기입
   }, async (email, password, done) => {
     try {
-      const exUser = await User.findOne({ where: { email } });
+      const exUser = await User.findOne({ where: { email } }); // select 하는 부분
       if (exUser) {
         const result = await bcrypt.compare(password, exUser.password); // DB와 데이터 비교
         if (result) {

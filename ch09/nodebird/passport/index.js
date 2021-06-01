@@ -2,6 +2,7 @@ const passport = require('passport');
 const local = require('./localStrategy'); // 로그인 전략
 const kakao = require('./kakaoStrategy'); // 로그인 전략, 어떤 형식으로 로그인 할지 정의
 const User = require('../models/user');
+const mdbConn = require('./mariaDBConn.js');
 
 module.exports = () => { // 이 화살표 함수는 passportConfig() 함수를 app.js에서 psassportConfig()에서 호출됨
     passport.serializeUser((user, done) => {
