@@ -6,8 +6,11 @@ const Post = require('./post');
 const Hashtag = require('./hashtag');
 
 const db = {};
-const sequelize = new Sequelize( // sequelize 객체 생성
-  config.database, config.username, config.password, config,
+const sequelize = new Sequelize(
+  config.username,
+  config.password,
+  config.database,
+  config
 );
 
 db.sequelize = sequelize;

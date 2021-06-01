@@ -50,6 +50,8 @@ app.use(passport.session());
 // 미들웨어 req, res, next로 구성 next를 안쓰면 라우터를 안거침
 app.use('/', pageRouter); // 미들웨어 설정, 프론트 컨트롤러의 역할
 //라우터는 미들웨어 중에 하나
+app.use('/auth', authRouter);
+
 app.unsubscribe('./auth', authRouter);
 // 404 에러 처리 미들웨어
 app.use((req, res, next) => { // 404처리 미들웨어
